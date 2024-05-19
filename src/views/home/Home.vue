@@ -25,7 +25,7 @@
         Aqui você poderá acompanhar a grade acadêmica de acordo com seu período,
         contendo as disciplinas, professores e salas.
       </p>
-      <div class="mt-10 flex items-center justify-center gap-x-6">
+      <div class="mt-10 flex items-center justify-center gap-x-6 pb-48">
         <button
           href="#"
           class="rounded-md bg-blue-900 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

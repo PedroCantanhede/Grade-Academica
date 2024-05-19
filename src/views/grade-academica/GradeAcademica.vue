@@ -2,10 +2,11 @@
   <div class="mx-auto max-w-4xl py-32 sm:py-48 lg:py-20">
     <div class="lg:flex lg:items-center lg:justify-between">
       <div class="min-w-0 flex-1">
+        <!-- Header -->
         <h2
           class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"
         >
-          1° Período
+          Grade Acadêmica
         </h2>
         <div
           class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6"
@@ -24,7 +25,6 @@
                 d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25"
               />
             </svg>
-
             Sistemas de Informação
           </div>
           <div class="mt-2 flex items-center text-sm text-gray-500">
@@ -88,8 +88,25 @@
       </div>
     </div>
 
-    <!-- GRADE TABELA -->
-    <div class="relative overflow-x-auto lg:py-12">
+    <!-- Select com Período -->
+    <div class="py-12">
+      <label for="period" class="block text-sm font-medium text-gray-700"
+        >Selecione o Período</label
+      >
+      <select
+        id="period"
+        v-model="selectedPeriod"
+        @change="fetchSchedule"
+        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+      >
+        <option v-for="period in periods" :key="period.id" :value="period.id">
+          {{ period.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Grade Horária -->
+    <div class="relative overflow-x-auto">
       <table
         class="w-full text-sm text-left rtl:text-right text-gray-500 white:text-gray-400"
       >
@@ -105,212 +122,58 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="bg-white border-b white:bg-gray-800 white:border-gray-700">
-            <th
-              scope="row"
-              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap white:text-white"
-            >
-              18:00 - 18:50
-            </th>
-            <td class="px-6 py-4">Eletricidade Básica</td>
-            <td class="px-6 py-4">Física</td>
-            <td class="px-6 py-4">Leitura e Produção de Textos Acadêmicos</td>
-            <td class="px-6 py-4">Algoritmo Estruturado</td>
-            <td class="px-6 py-4">Fundamentos Matemática</td>
-            <td class="px-6 py-4">-</td>
-          </tr>
-          <tr class="bg-white border-b white:bg-gray-800 white:border-gray-700">
-            <th
-              scope="row"
-              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap white:text-white"
-            >
-              18:50 - 19:40
-            </th>
-            <td class="px-6 py-4">Eletricidade Básica</td>
-            <td class="px-6 py-4">Física</td>
-            <td class="px-6 py-4">Leitura e Produção de Textos Acadêmicos</td>
-            <td class="px-6 py-4">Algoritmo Estruturado</td>
-            <td class="px-6 py-4">Fundamentos Matemática</td>
-            <td class="px-6 py-4">-</td>
-          </tr>
           <tr
-            class="bg-gray-50 border-b white:bg-gray-800 white:border-gray-700"
+            v-for="(row, rowIndex) in schedule.classes"
+            :key="rowIndex"
+            :class="
+              rowIndex % 2 === 0
+                ? 'bg-white border-b white:bg-gray-800 white:border-gray-700'
+                : 'bg-gray-50 border-b white:bg-gray-800 white:border-gray-700'
+            "
           >
             <th
               scope="row"
-              class="px-6 py-4 font-medium whitespace-nowrap dark:text-blue-900"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap white:text-white"
             >
-              19:40 - 20:00
+              {{ row.time }}
             </th>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
             <td
-              class="px-6 py-4 text-bold font-medium dark:text-blue-900 whitespace-nowrap"
+              v-for="(subject, colIndex) in row.days"
+              :key="colIndex"
+              class="px-6 py-4"
             >
-              Intervalo
+              {{ subject }}
             </td>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-            <td class="px-6 py-4"></td>
-          </tr>
-          <tr class="bg-white border-b white:bg-gray-800 white:border-gray-700">
-            <th
-              scope="row"
-              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap white:text-white"
-            >
-              20:00 - 20:50
-            </th>
-            <td class="px-6 py-4">Eletricidade Básica</td>
-            <td class="px-6 py-4">Física</td>
-            <td class="px-6 py-4">Leitura e Produção de Textos Acadêmicos</td>
-            <td class="px-6 py-4">Algoritmo Estruturado</td>
-            <td class="px-6 py-4">Fundamentos Matemática</td>
-            <td class="px-6 py-4">-</td>
-          </tr>
-          <tr class="bg-white border-b white:bg-gray-800 white:border-gray-700">
-            <th
-              scope="row"
-              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap white:text-white"
-            >
-              20:50 - 21:40
-            </th>
-            <td class="px-6 py-4">Eletricidade Básica</td>
-            <td class="px-6 py-4">Física</td>
-            <td class="px-6 py-4">Leitura e Produção de Textos Acadêmicos</td>
-            <td class="px-6 py-4">Algoritmo Estruturado</td>
-            <td class="px-6 py-4">Fundamentos Matemática</td>
-            <td class="px-6 py-4">-</td>
-          </tr>
-          <tr class="bg-white white:bg-gray-800">
-            <th
-              scope="row"
-              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap white:text-white"
-            >
-              21:40 - 22:30
-            </th>
-            <td class="px-6 py-4">Eletricidade Básica</td>
-            <td class="px-6 py-4">Física</td>
-            <td class="px-6 py-4">Leitura e Produção de Textos Acadêmicos</td>
-            <td class="px-6 py-4">Algoritmo Estruturado</td>
-            <td class="px-6 py-4">Fundamentos Matemática</td>
-            <td class="px-6 py-4">-</td>
           </tr>
         </tbody>
       </table>
 
+      <!-- Informações da Grade -->
       <ul role="list" class="divide-y divide-gray-100">
-        <li class="flex justify-between gap-x-6 py-5">
+        <li
+          v-for="teacher in schedule.teachers"
+          :key="teacher.name"
+          class="flex justify-between gap-x-6 py-5"
+        >
           <div class="flex min-w-0 gap-x-4">
             <img
               class="h-12 w-12 flex-none rounded-full bg-gray-50"
-              src=""
+              :src="teacher.image"
               alt=""
             />
             <div class="min-w-0 flex-auto">
               <p class="text-sm font-semibold leading-6 text-gray-900">
-                Profº. Alexandre
+                {{ teacher.name }}
               </p>
               <p class="mt-1 truncate text-xs leading-5 text-gray-500">
-                Eletricidade Básica
+                {{ teacher.subject }}
               </p>
             </div>
           </div>
           <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-            <p class="text-sm leading-6 text-gray-900">Sala A316</p>
+            <p class="text-sm leading-6 text-gray-900">{{ teacher.room }}</p>
             <p class="mt-1 text-xs leading-5 text-gray-500">
-                Bloco A
-            </p>
-          </div>
-        </li>
-        <li class="flex justify-between gap-x-6 py-5">
-          <div class="flex min-w-0 gap-x-4">
-            <img
-              class="h-12 w-12 flex-none rounded-full bg-gray-50"
-              src=""
-              alt=""
-            />
-            <div class="min-w-0 flex-auto">
-              <p class="text-sm font-semibold leading-6 text-gray-900">
-                Profª. Patrícia Haryella
-              </p>
-              <p class="mt-1 truncate text-xs leading-5 text-gray-500">
-                Física
-              </p>
-            </div>
-          </div>
-          <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-            <p class="text-sm leading-6 text-gray-900">Sala A316</p>
-            <p class="mt-1 text-xs leading-5 text-gray-500">
-              Bloco A
-            </p>
-          </div>
-        </li>
-        <li class="flex justify-between gap-x-6 py-5">
-          <div class="flex min-w-0 gap-x-4">
-            <img
-              class="h-12 w-12 flex-none rounded-full bg-gray-50"
-              src=""
-              alt=""
-            />
-            <div class="min-w-0 flex-auto">
-              <p class="text-sm font-semibold leading-6 text-gray-900">
-                Profª. Alessandra Magalhães
-              </p>
-              <p class="mt-1 truncate text-xs leading-5 text-gray-500">
-                Leitura e Produção de Textos Acadêmicos
-              </p>
-            </div>
-          </div>
-          <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-            <p class="text-sm leading-6 text-gray-900">Sala A316</p>
-            <p class="mt-1 text-xs leading-5 text-gray-500">
-              Bloco A
-            </p>
-          </div>
-        </li>
-        <li class="flex justify-between gap-x-6 py-5">
-          <div class="flex min-w-0 gap-x-4">
-            <img
-              class="h-12 w-12 flex-none rounded-full bg-gray-50"
-              src=""
-              alt=""
-            />
-            <div class="min-w-0 flex-auto">
-              <p class="text-sm font-semibold leading-6 text-gray-900">
-                Profº. Thiago Tuxi
-              </p>
-              <p class="mt-1 truncate text-xs leading-5 text-gray-500">
-                Algoritmo Estruturado
-              </p>
-            </div>
-          </div>
-          <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-            <p class="text-sm leading-6 text-gray-900">Sala A314</p>
-            <p class="mt-1 text-xs leading-5 text-gray-500">
-              Bloco A
-            </p>
-          </div>
-        </li>
-        <li class="flex justify-between gap-x-6 py-5">
-          <div class="flex min-w-0 gap-x-4">
-            <img
-              class="h-12 w-12 flex-none rounded-full bg-gray-50"
-              src=""
-              alt=""
-            />
-            <div class="min-w-0 flex-auto">
-              <p class="text-sm font-semibold leading-6 text-gray-900">
-                Profº. Douglas
-              </p>
-              <p class="mt-1 truncate text-xs leading-5 text-gray-500">
-                Fundamentos Matemática
-              </p>
-            </div>
-          </div>
-          <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-            <p class="text-sm leading-6 text-gray-900">Sala A316</p>
-            <p class="mt-1 text-xs leading-5 text-gray-500">
-              Bloco A
+              {{ teacher.building }}
             </p>
           </div>
         </li>
@@ -320,9 +183,42 @@
 </template>
 
 <script>
+import { initFlowbite } from 'flowbite';
+import { schedules } from '@/data/mockSchedules';
+
 export default {
-  name: "GradeAcademicaPage",
+  data() {
+    return {
+      selectedPeriod: null,
+      periods: [
+        { id: 1, name: "1° Período" },
+        { id: 2, name: "2° Período" },
+        { id: 3, name: "3° Período" },
+        { id: 4, name: "4° Período" },
+        { id: 5, name: "5° Período" },
+        { id: 6, name: "6° Período" },
+        { id: 7, name: "7° Período" },
+        { id: 8, name: "8° Período" },
+        { id: 9, name: "9° Período" },
+      ],
+      schedule: {
+        classes: [],
+        teachers: [],
+      },
+    };
+  },
+  methods: {
+    fetchSchedule() {
+      this.schedule = schedules[this.selectedPeriod];
+    },
+  },
+  mounted() {
+    this.selectedPeriod = this.periods[0].id;
+    this.fetchSchedule();
+    // Inicializa os componentes Flowbite na GradeAcademica após o componente ser montado
+    initFlowbite();
+  },
 };
 </script>
 
-<style></style>
+<style scoped></style>

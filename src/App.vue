@@ -1,19 +1,27 @@
 <template>
-  <div>
+  <div class="min-h-screen flex flex-col">
     <!-- Renderiza o Navbar apenas se não estiver na página de login ou na página de registro -->
     <NavbarComponent v-if="!isLoginPage && !isRegisterPage" />
+    
     <!-- Renderiza o conteúdo da rota atual -->
-    <router-view/>
+    <div class="flex-grow">
+      <router-view/>
+    </div>
+    
+    <FooterComponent v-if="!isLoginPage && !isRegisterPage" />
   </div>
 </template>
 
 <script>
 import NavbarComponent from './components/NavbarComponent.vue';
+import FooterComponent from './components/FooterComponent.vue';
+import { initFlowbite } from 'flowbite';
 
 export default {
   name: 'App',
   components: {
-    NavbarComponent 
+    NavbarComponent,
+    FooterComponent
   },
   data() {
     return {
@@ -38,9 +46,13 @@ export default {
       this.isRegisterPage = this.$route.path === '/register';
     },
   },
+  mounted() {
+    // Inicializa os componentes Flowbite em toda a aplicação após o componente ser montado
+    initFlowbite();
+  }
 };
 </script>
 
 <style>
-
+/* Estilos globais, se necessário */
 </style>
