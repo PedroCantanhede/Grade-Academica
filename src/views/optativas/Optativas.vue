@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-auto max-w-4xl py-32 sm:py-48 lg:py-20">
+    <div class="py-32 sm:py-48 lg:py-20 px-4 sm:px-6 lg:px-12">
       <div class="lg:flex lg:items-center lg:justify-between">
         <div class="min-w-0 flex-1">
           <h2
