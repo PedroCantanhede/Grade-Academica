@@ -118,12 +118,7 @@
     </div>
 
     <!-- Modal toggle -->
-    <button
-      data-modal-target="default-modal"
-      data-modal-toggle="default-modal"
-      class="hidden"
-      type="button"
-    >
+    <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="hidden" type="button">
       Abrir Modal
     </button>
 
@@ -139,17 +134,11 @@
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
           <!-- Modal header -->
-          <div
-            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"
-          >
+          <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
               Adicionar Professor
             </h3>
-            <button
-              type="button"
-              @click="closeModal"
-              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-            >
+            <button type="button" @click="closeModal" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
               <svg
                 class="w-3 h-3"
                 aria-hidden="true"
@@ -163,8 +152,7 @@
                   stroke-linejoin="round"
                   stroke-width="2"
                   d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                ></path>
-              </svg>
+                ></path></svg>
               <span class="sr-only">Fechar modal</span>
             </button>
           </div>
@@ -173,52 +161,25 @@
             <form @submit.prevent="addProfessor">
               <div class="grid gap-4 grid-cols-1 md:grid-cols-2">
                 <div class="col-span-2">
-                  <label
-                    for="professor"
-                    class="block mb-1 text-sm font-medium text-gray-900 dark:text-white"
-                    >Professor</label
-                  >
-                  <input
-                    v-model="formData.professor"
-                    type="text"
-                    id="professor"
-                    placeholder="Professor"
-                    class="block w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring focus:ring-blue-400 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-gray-500 dark:focus:border-gray-600"
-                  />
+                  <label for="file_input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload file</label>
+                  <input @change="handleFileUpload" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file" accept="image/*">
+                  <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
                 </div>
                 <div class="col-span-2">
-                  <label
-                    for="email"
-                    class="block mb-1 text-sm font-medium text-gray-900 dark:text-white"
-                    >E-mail</label
-                  >
-                  <input
-                    v-model="formData.email"
-                    type="email"
-                    id="email"
-                    placeholder="E-mail"
-                    class="block w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring focus:ring-blue-400 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-gray-500 dark:focus:border-gray-600"
-                  />
+                  <label for="professor" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Professor</label>
+                  <input v-model="formData.professor" type="text" id="professor" placeholder="Professor" class="block w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring focus:ring-blue-400 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-gray-500 dark:focus:border-gray-600" />
+                </div>
+                <div class="col-span-2">
+                  <label for="email" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">E-mail</label>
+                  <input v-model="formData.email" type="email" id="email" placeholder="E-mail" class="block w-full px-4 py-2 rounded
+                  -lg border border-gray-300 focus:outline-none focus:ring focus:ring-blue-400 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-gray-500 dark:focus:border-gray-600" />
                 </div>
               </div>
               <!-- Divisor -->
               <hr class="my-4 border-gray-300 dark:border-gray-600" />
-              <button
-                type="submit"
-                class="inline-flex items-center bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-50"
-              >
-                <svg
-                  class="w-4 h-4 mr-2"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                  ></path>
+              <button type="submit" class="inline-flex items-center bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-50">
+                <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                 </svg>
                 Adicionar
               </button>
@@ -229,22 +190,16 @@
     </div>
 
     <!-- Tabela para exibir professores existentes -->
-    <table
-      class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-    >
-      <caption
-        class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800"
-      >
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <caption class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
         Todos os professores
-        <!-- Descrição -->
         <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
           Lista de todos os professores com seus respectivos e-mails.
         </p>
       </caption>
-      <thead
-        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-      >
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
+          <th scope="col" class="px-6 py-3">Foto</th>
           <th scope="col" class="px-6 py-3">Professor</th>
           <th scope="col" class="px-6 py-3">E-mail</th>
           <th scope="col" class="px-6 py-3">
@@ -257,56 +212,29 @@
       </thead>
       <tbody>
         <!-- Loop para exibir cada professor -->
-        <tr
-          v-for="(professor, index) in professores"
-          :key="index"
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-        >
-          <td
-            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-          >
+        <tr v-for="(professor, index) in professores" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <td class="px-4 py-3">
+            <img v-if="professor.foto" :src="professor.foto" alt="Foto do professor" class="w-12 h-12 object-cover rounded-full" />
+            <span v-else>Nenhuma foto</span>
+          </td>
+          <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
             {{ professor.professor }}
           </td>
           <td class="px-6 py-4">{{ professor.email }}</td>
           <td class="px-6 py-4 text-right">
-            <button
-              @click="editProfessor(index)"
-              class="flex items-center font-medium text-blue-600 light:text-blue-500 hover:underline"
-            >
-              <svg
-                class="w-4 h-4 mr-2"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
-                />
-                <path
-                  fill-rule="evenodd"
-                  d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                  clip-rule="evenodd"
-                />
+            <button @click="editProfessor(index)" class="flex items-center font-medium text-blue-600 light:text-blue-500 hover:underline">
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
               </svg>
               Editar
             </button>
           </td>
           <td class="px-6 py-4 text-right">
-            <button
-              @click="deleteProfessor(index)"
-              class="flex items-center font-medium text-red-600 light:text-red-500 hover:underline"
-            >
-              <svg
-                class="w-4 h-4 mr-2"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                  clip-rule="evenodd"
-                />
+            <button @click="deleteProfessor(index)" class="flex items-center font-medium text-red-600 light:text-red-500 hover:underline">
+              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M9 2a1 1 
+                01 2.414 9 9v10a1 1 0 01-1 1H6a1 1 0 01-1-1V9a1 1 0 011-1h3zm3 0a1 1 0 011 1v10a1 1 0 01-1 1H9a1 1 0 01-1-1V9a1 1 0 011-1h3z" clip-rule="evenodd" />
               </svg>
               Excluir
             </button>
@@ -323,13 +251,14 @@ export default {
   data() {
     return {
       professores: [
-        { professor: "João Silva", email: "joao.silva@example.com" },
-        { professor: "Maria Souza", email: "maria.souza@example.com" },
+        { professor: "João Silva", email: "joao.silva@example.com", foto: "https://randomuser.me/api/portraits/men/7.jpg" },
+        { professor: "Maria Souza", email: "maria.souza@example.com", foto: "https://randomuser.me/api/portraits/women/8.jpg" },
       ],
       modal: false,
       formData: {
         professor: "",
         email: "",
+        foto: null,
       },
     };
   },
@@ -345,6 +274,7 @@ export default {
         this.professores.push({ ...this.formData });
         this.formData.professor = "";
         this.formData.email = "";
+        this.formData.foto = null; // Reset foto after adding professor
         this.closeModal();
       }
     },
@@ -357,8 +287,21 @@ export default {
     deleteProfessor(index) {
       this.professores.splice(index, 1);
     },
+    handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        // Assuming you're storing the image as base64 encoded string
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.formData.foto = e.target.result
+          ;
+        };
+        reader.readAsDataURL(file);
+      }
+    },
   },
 };
 </script>
 
-<style></style>
+<style>
+</style>
