@@ -15,12 +15,27 @@ const routes = [
     {
         path: '/optativas',
         name: 'OptativasPage',
-        component: () => import(/* webpackChunkName: "grade-academica/GradeAcademica.vue" */ '../views/optativas/Optativas.vue')
+        component: () => import(/* webpackChunkName: "optativas/Optativas.vue" */ '../views/optativas/Optativas.vue')
     },
     {
-        path: '/admin',
-        name: 'AdminPage',
-        component: () => import(/* webpackChunkName: "grade-academica/GradeAcademica.vue" */ '../views/admin/Admin.vue')
+        path: '/admin/professor',
+        name: 'ProfessorPage',
+        component: () => import(/* webpackChunkName: "admin/professor/Professor.vue" */ '../views/admin/professor/Professor.vue')
+    },
+    {
+        path: '/admin/disciplina',
+        name: 'DisciplinaPage',
+        component: () => import(/* webpackChunkName: "admin/disciplina/Disciplina.vue" */ '../views/admin/disciplina/Disciplina.vue')
+    },
+    {
+        path: '/admin/grade',
+        name: 'GradePage',
+        component: () => import(/* webpackChunkName: "admin/grade/Grade.vue" */ '../views/admin/grade/Grade.vue')
+    },
+    {
+        path: '/admin/sala',
+        name: 'SalaPage',
+        component: () => import(/* webpackChunkName: "admin/sala/Sala.vue" */ '../views/admin/sala/Sala.vue')
     },
     {
         path: '/login',
