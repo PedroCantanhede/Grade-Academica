@@ -149,7 +149,9 @@
             class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"
           >
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-              Adicionar Professor
+              {{
+                editIndex === -1 ? "Adicionar Professor" : "Editar Professor"
+              }}
             </h3>
             <button
               type="button"
@@ -171,7 +173,7 @@
                   d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                 ></path>
               </svg>
-              <span class="sr-only">Fechar modal</span>
+              <span class="sr-only">Fechar</span>
             </button>
           </div>
           <!-- Modal body -->
@@ -232,22 +234,9 @@
               <hr class="my-4 border-gray-300 dark:border-gray-600" />
               <button
                 type="submit"
-                class="inline-flex items-center bg-blue-900 text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-50"
+                class="inline-flex items-center px-4 py-2 text-white bg-blue-900 border border-transparent rounded-md shadow-sm text-sm font-medium hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
-                <svg
-                  class="w-4 h-4 mr-2"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                  ></path>
-                </svg>
-                Adicionar
+                {{ editIndex === -1 ? "Adicionar" : "Salvar" }}
               </button>
             </form>
           </div>
@@ -256,92 +245,98 @@
     </div>
 
     <!-- Tabela para exibir professores existentes -->
-    <table
-      class="w-full mt-10 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+    <div
+      class="overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg mt-6"
     >
-      <thead
-        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-      >
-        <tr>
-          <th scope="col" class="px-6 py-3">Foto</th>
-          <th scope="col" class="px-6 py-3">Professor</th>
-          <th scope="col" class="px-6 py-3">E-mail</th>
-          <th scope="col" class="px-6 py-3">
-            <span class="sr-only">Editar</span>
-          </th>
-          <th scope="col" class="px-6 py-3">
-            <span class="sr-only">Excluir</span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Loop para exibir cada professor -->
-        <tr
-          v-for="(professor, index) in professores"
-          :key="index"
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+      <div class="overflow-x-auto">
+        <table
+          class="min-w-full text-sm text-left text-gray-500 dark:text-gray-400"
         >
-          <td class="px-4 py-3">
-            <img
-              v-if="professor.foto"
-              :src="professor.foto"
-              alt="Foto do professor"
-              class="w-12 h-12 object-cover rounded-full"
-            />
-            <span v-else>Nenhuma foto</span>
-          </td>
-          <td
-            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          <thead
+            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
           >
-            {{ professor.professor }}
-          </td>
-          <td class="px-6 py-4">{{ professor.email }}</td>
-          <td class="px-6 py-4 text-right">
-            <button
-              @click="editProfessor(index)"
-              class="flex items-center font-medium text-blue-600 light:text-blue-500 hover:underline"
+            <tr>
+              <th scope="col" class="px-6 py-3">Foto</th>
+              <th scope="col" class="px-6 py-3">Professor</th>
+              <th scope="col" class="px-6 py-3">E-mail</th>
+              <th scope="col" class="px-6 py-3">
+                <span class="sr-only">Editar</span>
+              </th>
+              <th scope="col" class="px-6 py-3">
+                <span class="sr-only">Excluir</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Loop para exibir cada professor -->
+            <tr
+              v-for="(professor, index) in professores"
+              :key="index"
+              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
             >
-              <svg
-                class="w-4 h-4 mr-2"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
+              <td class="px-4 py-3">
+                <img
+                  v-if="professor.foto"
+                  :src="professor.foto"
+                  alt="Foto do professor"
+                  class="w-12 h-12 object-cover rounded-full"
+                />
+                <span v-else>Nenhuma foto</span>
+              </td>
+              <td
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
-                <path
-                  d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
-                />
-                <path
-                  fill-rule="evenodd"
-                  d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-              Editar
-            </button>
-          </td>
-          <td class="px-6 py-4 text-right">
-            <button
-              @click="deleteProfessor(index)"
-              class="flex items-center font-medium text-red-600 light:text-red-500 hover:underline"
-            >
-              <svg
-                class="w-4 h-4 mr-2"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-              Excluir
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+                {{ professor.professor }}
+              </td>
+              <td class="px-6 py-4">{{ professor.email }}</td>
+              <td class="px-6 py-4 text-right">
+                <button
+                  @click="editProfessor(index)"
+                  class="flex items-center font-medium text-blue-600 light:text-blue-500 hover:underline"
+                >
+                  <svg
+                    class="w-4 h-4 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Editar
+                </button>
+              </td>
+              <td class="px-6 py-4 text-right">
+                <button
+                  @click="deleteProfessor(index)"
+                  class="flex items-center font-medium text-red-600 light:text-red-500 hover:underline"
+                >
+                  <svg
+                    class="w-4 h-4 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Excluir
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -350,19 +345,20 @@ export default {
   name: "ProfessorPage",
   data() {
     return {
+      modal: false,
+      editIndex: -1,
       professores: [
         {
-          professor: "João Silva",
-          email: "joao.silva@example.com",
+          professor: "Thiago Tuxi",
+          email: "thiago.tuxi@cefet-rj.com",
           foto: "https://randomuser.me/api/portraits/men/7.jpg",
         },
         {
-          professor: "Maria Souza",
-          email: "maria.souza@example.com",
+          professor: "Alessandra Magalhães",
+          email: "alexandra@cefet-rj.com",
           foto: "https://randomuser.me/api/portraits/women/8.jpg",
         },
       ],
-      modal: false,
       formData: {
         professor: "",
         email: "",
@@ -376,21 +372,28 @@ export default {
     },
     closeModal() {
       this.modal = false;
+      this.resetForm();
+      this.editIndex = -1;
+    },
+    resetForm() {
+      this.formData = {
+        professor: "",
+        email: "",
+        foto: null,
+      };
     },
     addProfessor() {
-      if (this.formData.professor && this.formData.email) {
+      if (this.editIndex === -1) {
         this.professores.push({ ...this.formData });
-        this.formData.professor = "";
-        this.formData.email = "";
-        this.formData.foto = null; // Reseta foto após adicionar professor
-        this.closeModal();
+      } else {
+        Object.assign(this.professores[this.editIndex], this.formData);
       }
+      this.closeModal();
     },
     editProfessor(index) {
-      const professor = this.professores[index];
-      this.formData = { ...professor };
+      this.editIndex = index;
+      this.formData = { ...this.professores[index] };
       this.openModal();
-      this.deleteProfessor(index);
     },
     deleteProfessor(index) {
       this.professores.splice(index, 1);

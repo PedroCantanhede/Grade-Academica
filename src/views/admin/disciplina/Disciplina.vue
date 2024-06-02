@@ -180,14 +180,14 @@
             <form @submit.prevent="saveDisciplina">
               <div class="mb-4">
                 <label
-                  for="nome"
+                  for="disciplina"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >Nome da Disciplina</label
                 >
                 <input
                   type="text"
-                  id="nome"
-                  v-model="formData.nome"
+                  id="disciplina"
+                  v-model="formData.disciplina"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   required
                 />
@@ -234,7 +234,7 @@
       </div>
     </div>
 
-    <!-- Table -->
+    <!-- Tabela para exibir disciplinas existentes -->
     <div
       class="overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg mt-6"
     >
@@ -246,7 +246,7 @@
             class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
           >
             <tr>
-              <th scope="col" class="px-6 py-3">Nome</th>
+              <th scope="col" class="px-6 py-3">Disciplina</th>
               <th scope="col" class="px-6 py-3">Carga Horária</th>
               <th scope="col" class="px-6 py-3">Créditos</th>
               <th scope="col" class="px-6 py-3">
@@ -258,12 +258,13 @@
             </tr>
           </thead>
           <tbody>
+            <!-- Loop para exibir cada disciplina -->
             <tr
               v-for="(disciplina, index) in disciplinas"
               :key="index"
               class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
             >
-              <td class="px-6 py-4">{{ disciplina.nome }}</td>
+              <td class="px-6 py-4">{{ disciplina.disciplina }}</td>
               <td class="px-6 py-4">{{ disciplina.cargaHoraria }}</td>
               <td class="px-6 py-4">{{ disciplina.creditos }}</td>
               <td class="px-6 py-4 text-right">
@@ -325,12 +326,12 @@ export default {
       modal: false,
       editIndex: -1,
       disciplinas: [
-        { nome: "Matemática", cargaHoraria: 60, creditos: 4 },
-        { nome: "Física", cargaHoraria: 45, creditos: 3 },
-        { nome: "Química", cargaHoraria: 50, creditos: 3 },
+        { disciplina: "Tópicos Avançados", cargaHoraria: 60, creditos: 4 },
+        { disciplina: "Física", cargaHoraria: 45, creditos: 3 },
+        { disciplina: "Eletricidade Básica", cargaHoraria: 50, creditos: 3 },
       ],
       formData: {
-        nome: "",
+        disciplina: "",
         cargaHoraria: "",
         creditos: "",
       },
@@ -347,7 +348,7 @@ export default {
     },
     resetForm() {
       this.formData = {
-        nome: "",
+        disciplina: "",
         cargaHoraria: "",
         creditos: "",
       };
@@ -373,5 +374,4 @@ export default {
 </script>
 
 <style>
-/* Adicione qualquer estilo adicional aqui */
 </style>
